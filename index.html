@@ -1,46 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Euro 2024 Live TV: Germany</title>
-  <link rel="icon" href="https://play-lh.googleusercontent.com/V9twROXZca21hHQdeYvGNts5V3r4lH5JeP-1aoWmR8XQQZ7jj-EiTFwCTrkuybaK9A8y=w240-h480-rw" type="image/x-icon">
-  <!-- Choose a different theme from the Pace.js themes -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.min.css">
-  <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #000222; /* Change the background color */
-      color: #ffdd00; /* Change the text color */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .name {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .spotify-link {
+            text-decoration: none;
+            color: #1DB954;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js"></script>
-  <script>
-    Pace.on('hide', function () {
-      // Redirect to your site after the progress bar is complete
-      window.location.href = 'https://sites.google.com/view/euro2024livetv';
-    });
-
-    Pace.options = {
-      ajax: {
-        trackMethods: ['GET', 'POST']
-      },
-      restartOnRequestAfter: false,
-      restartOnPushState: false,
-      restartOnBack: false,
-      startOnPageLoad: false,
-      elements: false,
-      eventLag: false,
-      minTime: 0,
-      color: '#ffdd00', // Change the loading bar color
-    };
-  </script>
+    <div class="container">
+        <img src="artist-photo.jpg" alt="Artist Photo" class="profile-pic">
+        <div class="name">7Keyz Beatz</div>
+        <a href="https://open.spotify.com/artist/6frXlIJjZE4mX6mM47w4uT" target="_blank" class="spotify-link">
+            Listen on Spotify
+        </a>
+    </div>
 </body>
 </html>
