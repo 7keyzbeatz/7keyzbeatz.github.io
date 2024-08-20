@@ -1,6 +1,4 @@
-def get_message():
-    return "Hello from Python!"
-
-if __name__ == "__main__":
-    message = get_message()
-    print(message)
+def main():
+    # Do some processing
+    result = "Hello from Python"
+    return result
