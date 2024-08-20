@@ -1,4 +1,3 @@
+# test.py
 def main():
-    # Do some processing
-    result = "Hello from Python"
-    return result
+    print("Hello from the test module!")
