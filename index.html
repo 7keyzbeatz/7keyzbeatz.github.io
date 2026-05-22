@@ -1,61 +1,777 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artist Profile</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #1e3a5f;
-        }
-        .container {
-            text-align: center;
-            background: #fff;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 2s ease;
-        }
-        .profile-pic {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 5px solid #ffdd00;
-        }
-        .name {
-            font-size: 28px;
-            color: #ffdd00;
-            margin-bottom: 15px;
-        }
-        .spotify-link {
-            text-decoration: none;
-            color: #1DB954;
-            font-size: 20px;
-            transition: color 0.3s;
-        }
-        .spotify-link:hover {
-            color: #ffdd00;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vasilis — Interactive Resume</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0f0f0f;
+    --paper: #f5f0e8;
+    --accent: #c8392b;
+    --accent-light: #e8d5d3;
+    --muted: #6b6560;
+    --border: #d4cec4;
+    --sidebar-bg: #1a1714;
+    --sidebar-text: #e8e2d8;
+    --sidebar-muted: #9b9489;
+    --sidebar-accent: #e8a598;
+    --highlight: #f5e642;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: #eae5dc;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ─── TOOLBAR ─── */
+  #toolbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--ink);
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 24px;
+    border-bottom: 2px solid var(--accent);
+  }
+  #toolbar .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 13px; letter-spacing: 0.2em;
+    color: var(--paper); text-transform: uppercase; margin-right: auto;
+  }
+  #search-input {
+    background: #2a2724; border: 1px solid #3d3830;
+    color: var(--paper); font-family: 'DM Mono', monospace;
+    font-size: 12px; padding: 6px 14px; border-radius: 2px;
+    width: 220px; outline: none; transition: border 0.2s;
+  }
+  #search-input::placeholder { color: var(--sidebar-muted); }
+  #search-input:focus { border-color: var(--accent); }
+
+  .lang-toggle {
+    display: flex; gap: 0; border: 1px solid #3d3830; border-radius: 2px; overflow: hidden;
+  }
+  .lang-btn {
+    background: transparent; border: none; color: var(--sidebar-muted);
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    padding: 5px 12px; cursor: pointer; transition: all 0.15s;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .lang-btn.active { background: var(--accent); color: white; }
+  .lang-btn:hover:not(.active) { background: #2a2724; color: var(--paper); }
+
+  .toolbar-btn {
+    background: transparent; border: 1px solid #3d3830;
+    color: var(--sidebar-muted); font-family: 'DM Mono', monospace;
+    font-size: 11px; padding: 5px 14px; cursor: pointer;
+    border-radius: 2px; transition: all 0.15s;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .toolbar-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .toolbar-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+  /* ─── RESUME WRAPPER ─── */
+  #resume-wrapper {
+    max-width: 1060px;
+    margin: 80px auto 40px;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 800px;
+  }
+
+  /* ─── SIDEBAR ─── */
+  #sidebar {
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 40px 28px;
+    display: flex; flex-direction: column; gap: 32px;
+  }
+  .sidebar-header { border-bottom: 1px solid #2e2a26; padding-bottom: 28px; }
+  .sidebar-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px; line-height: 1.1;
+    color: var(--paper); margin-bottom: 6px;
+  }
+  .sidebar-title {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 16px;
+  }
+  .sidebar-tagline {
+    font-size: 11px; color: var(--sidebar-muted); line-height: 1.7;
+  }
+
+  .sidebar-section-label {
+    font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sidebar-section-label::after {
+    content: ''; flex: 1; height: 1px; background: #2e2a26;
+  }
+
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 11px; color: var(--sidebar-muted); margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .contact-item .icon { color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+  .contact-item a { color: var(--sidebar-text); text-decoration: none; }
+  .contact-item a:hover { color: var(--sidebar-accent); }
+
+  .skill-tag {
+    display: inline-block;
+    font-size: 10px; padding: 3px 10px; border-radius: 1px;
+    background: #2a2724; color: var(--sidebar-muted);
+    border: 1px solid #3d3830; margin: 3px 3px 0 0;
+    transition: all 0.15s; letter-spacing: 0.05em;
+  }
+  .skill-tag.match {
+    background: rgba(200,57,43,0.15);
+    border-color: var(--accent);
+    color: var(--sidebar-accent);
+  }
+
+  .edu-item { margin-bottom: 16px; }
+  .edu-degree {
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600;
+    color: var(--sidebar-text); margin-bottom: 3px;
+  }
+  .edu-school { font-size: 11px; color: var(--sidebar-muted); }
+  .edu-year { font-size: 10px; color: var(--accent); margin-top: 2px; letter-spacing: 0.1em; }
+
+  .lang-item {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .lang-name { font-size: 12px; color: var(--sidebar-text); }
+  .lang-level { font-size: 10px; color: var(--sidebar-muted); letter-spacing: 0.1em; }
+  .lang-bar {
+    width: 100%; height: 2px; background: #2e2a26;
+    margin-top: 5px; border-radius: 1px; overflow: hidden;
+  }
+  .lang-bar-fill { height: 100%; background: var(--accent); border-radius: 1px; }
+
+  /* ─── MAIN CONTENT ─── */
+  #main {
+    background: var(--paper);
+    padding: 40px 44px;
+    display: flex; flex-direction: column; gap: 32px;
+  }
+
+  .main-header { border-bottom: 2px solid var(--ink); padding-bottom: 20px; }
+  .main-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 46px; line-height: 1; letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .main-name em { color: var(--accent); font-style: italic; }
+  .main-role {
+    font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-top: 8px;
+  }
+  .main-stats {
+    display: flex; gap: 28px; margin-top: 18px;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px; color: var(--accent); line-height: 1;
+  }
+  .stat-label {
+    font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); margin-top: 3px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .profile-text {
+    font-size: 13px; line-height: 1.85; color: #3a3530;
+  }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-item {
+    display: grid; grid-template-columns: 1px 1fr;
+    gap: 0 20px; margin-bottom: 28px;
+    position: relative;
+  }
+  .exp-item:last-child { margin-bottom: 0; }
+  .timeline-line {
+    width: 1px; background: var(--border);
+    position: relative;
+  }
+  .timeline-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--paper);
+    position: absolute; top: 5px; left: -3.5px;
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .exp-content { padding-bottom: 8px; }
+  .exp-header { margin-bottom: 10px; }
+  .exp-role {
+    font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+    color: var(--ink); display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .exp-company {
+    font-size: 11px; font-weight: 400; color: var(--accent);
+    font-family: 'DM Mono', monospace; letter-spacing: 0.05em;
+  }
+  .exp-period {
+    font-size: 10px; color: var(--muted); letter-spacing: 0.1em;
+    margin-top: 3px;
+  }
+  .exp-bullets { list-style: none; margin-top: 10px; }
+  .exp-bullet {
+    font-size: 12px; line-height: 1.7; color: #3a3530;
+    padding: 3px 0; display: flex; align-items: baseline; gap: 8px;
+  }
+  .exp-bullet::before {
+    content: '—'; color: var(--accent); flex-shrink: 0; font-size: 10px;
+  }
+  .exp-bullet.hidden { display: none; }
+  .exp-item.hidden { display: none; }
+
+  /* ─── HIGHLIGHT ─── */
+  mark {
+    background: var(--highlight);
+    color: var(--ink);
+    padding: 0 2px;
+    border-radius: 1px;
+  }
+
+  /* ─── NO RESULTS ─── */
+  #no-results {
+    display: none; text-align: center; padding: 40px;
+    color: var(--muted); font-size: 13px;
+  }
+
+  /* ─── EXPORT LOADING ─── */
+  #export-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(15,15,15,0.8); z-index: 200;
+    align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace; color: var(--paper);
+    font-size: 14px; letter-spacing: 0.1em;
+    flex-direction: column; gap: 16px;
+  }
+  #export-overlay.active { display: flex; }
+  .export-spinner {
+    width: 32px; height: 32px; border: 2px solid #3d3830;
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    #toolbar { flex-wrap: wrap; gap: 8px; padding: 10px 16px; }
+    #search-input { width: 100%; order: 10; }
+    #resume-wrapper {
+      grid-template-columns: 1fr; margin: 70px 0 0;
+      box-shadow: none;
+    }
+    #main { padding: 24px 20px; }
+    #sidebar { padding: 28px 20px; }
+    .main-name { font-size: 34px; }
+    .main-stats { gap: 16px; flex-wrap: wrap; }
+  }
+
+  /* ─── PRINT ─── */
+  @media print {
+    #toolbar, #export-overlay { display: none !important; }
+    body { background: white; }
+    #resume-wrapper {
+      margin: 0; max-width: 100%; box-shadow: none;
+      width: 210mm; min-height: 297mm;
+    }
+    #sidebar { background: #1a1714 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .toolbar-btn, .lang-toggle { display: none !important; }
+    #search-input { display: none !important; }
+    .exp-item.hidden, .exp-bullet.hidden { display: none !important; }
+    #no-results { display: none !important; }
+    @page { margin: 0; size: A4; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <img src="artist-image.jfif" alt="Artist Photo" class="profile-pic">
-        <div class="name">7Keyz Beatz</div>
-        <a href="https://open.spotify.com/artist/6frXlIJjZE4mX6mM47w4uT" target="_blank" class="spotify-link">
-            Listen on Spotify
-        </a>
+
+<!-- ═══════════════════════════════════════════
+     TOOLBAR
+═══════════════════════════════════════════ -->
+<div id="toolbar">
+  <div class="logo">Resume ·  Platform</div>
+
+  <input type="text" id="search-input" placeholder="Search skills, technologies…" oninput="handleSearch(this.value)" />
+
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-el" onclick="setLang('el')">ΕΛ</button>
+  </div>
+
+  <button class="toolbar-btn" onclick="window.print()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    PDF
+  </button>
+
+  <button class="toolbar-btn" onclick="exportPNG()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+    PNG
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     EXPORT OVERLAY
+═══════════════════════════════════════════ -->
+<div id="export-overlay">
+  <div class="export-spinner"></div>
+  <span>Generating image…</span>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     RESUME
+═══════════════════════════════════════════ -->
+<div id="resume-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+
+    <div class="sidebar-header">
+      <div class="sidebar-name" id="s-name"></div>
+      <div class="sidebar-title" id="s-title"></div>
+      <div class="sidebar-tagline" id="s-tagline"></div>
     </div>
+
+    <!-- Contact -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label" id="s-label-contact"></div>
+      <div id="s-contact"></div>
+    </div>
+
+    <!-- Education -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label" id="s-label-edu"></div>
+      <div id="s-education"></div>
+    </div>
+
+    <!-- Skills -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label" id="s-label-skills"></div>
+      <div id="s-skills"></div>
+    </div>
+
+    <!-- Languages -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label" id="s-label-langs"></div>
+      <div id="s-languages"></div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main id="main">
+
+    <div class="main-header">
+      <div class="main-name" id="m-name"></div>
+      <div class="main-role" id="m-role"></div>
+      <div class="main-stats" id="m-stats"></div>
+    </div>
+
+    <!-- Profile -->
+    <div class="section">
+      <div class="section-title" id="m-label-profile"></div>
+      <p class="profile-text" id="m-profile"></p>
+    </div>
+
+    <!-- Experience -->
+    <div class="section">
+      <div class="section-title" id="m-label-exp"></div>
+      <div id="m-experience"></div>
+      <div id="no-results"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     DATA  (Edit everything here)
+═══════════════════════════════════════════ -->
+<script>
+// ─────────────────────────────────────────────────────────────
+//  OBFUSCATED CONTACT  (base64 splits — bots can't scrape)
+//  To encode:  btoa("your@email.com")  in browser console
+// ─────────────────────────────────────────────────────────────
+const _e = ["dmFzaWxpcy5k", "ZXZAZ21haWwuY29t"];          // vasilis.dev@gmail.com  ← replace
+const _p = ["KzMwIDY5MSAy", "MzQgNTY3OA=="];               // +30 691 234 5678       ← replace
+const decodeContact = (arr) => arr.map(s => atob(s)).join('');
+
+// ─────────────────────────────────────────────────────────────
+//  RESUME DATA
+// ─────────────────────────────────────────────────────────────
+const RESUME = {
+  en: {
+    name: "Vasilis",
+    surname: "Lastname",          // ← replace
+    title: "Android & Web Developer",
+    tagline: "Self-taught engineer shipping products since age 11. 300K+ downloads. Monetization-first mindset.",
+
+    labels: {
+      contact: "Contact",
+      education: "Education",
+      skills: "Expertise",
+      languages: "Languages",
+      profile: "Profile",
+      experience: "Experience",
+    },
+
+    stats: [
+      { num: "300K+", label: "Total Downloads" },
+      { num: "8+",    label: "Years Building" },
+      { num: "5+",    label: "Live Apps" },
+    ],
+
+    profile: "Self-driven software developer with 8+ years of hands-on experience building and shipping Android applications and web platforms. Creator of a viral mobile game with 50K downloads in 3 months at age 16. Combines product thinking with technical execution — from REST API design to AdMob monetization and Google Play release management. Currently pursuing a B.Sc. in Applied Informatics while working on independent projects.",
+
+    contact: {
+      location: "Thessaloniki, Greece",
+      github:   "github.com/vasilis",       // ← replace
+      linkedin: "linkedin.com/in/vasilis",  // ← replace
+    },
+
+    education: [
+      {
+        degree: "B.Sc. Applied Informatics",
+        school: "University of Macedonia",
+        year: "2022 — Present · 3rd Year",
+        direction: "Computer Science & Technology",
+      },
+    ],
+
+    skills: [
+      "Java", "Android Studio", "Gradle", "REST APIs", "JSON",
+      "HTTP / OAuth", "AdMob", "Google Play", "PHP", "HTML/CSS",
+      "JavaScript", "MySQL", "Logcat", "ANR Debugging",
+      "Git", "Bluehost", "FTP", "CSV Export",
+    ],
+
+    languages: [
+      { name: "Greek",   level: "Native",       pct: 100 },
+      { name: "English", level: "Proficient C1", pct: 90  },
+    ],
+
+    experience: [
+      {
+        role: "Independent Android Developer",
+        company: "Self-Employed",
+        period: "2018 — Present",
+        bullets: [
+          "Built and published 5+ Android applications achieving 300,000+ cumulative downloads on Google Play.",
+          "Implemented AdMob monetization (banner, interstitial, rewarded ads) and optimised eCPM through A/B testing ad placements.",
+          "Managed full release lifecycle: store listing copywriting, screenshots, ASO keyword research, staged rollouts, crash monitoring.",
+          "Integrated REST APIs (GET/POST, headers, auth tokens, JSON parsing) for dynamic content loading inside apps.",
+          "Debugged production issues using Logcat, ANR traces, and Firebase Crashlytics.",
+        ],
+      },
+      {
+        role: "Viral Mobile Game Creator",
+        company: "Independent Project",
+        period: "2020 (Age 16)",
+        bullets: [
+          "Designed, developed, and launched a 2D mobile game targeted at Greek-speaking users.",
+          "Achieved ~50,000 downloads organically in approximately 3 months with zero paid marketing.",
+          "Handled full publishing pipeline on Google Play including content rating, privacy policy, and update management.",
+        ],
+      },
+      {
+        role: "Full-Stack Web Developer",
+        company: "Freelance / Personal Project",
+        period: "2024",
+        bullets: [
+          "Built a production web platform from scratch using PHP, HTML, CSS, and Vanilla JavaScript — no CMS or framework.",
+          "Implemented user authentication system, admin panel, and role-based access control.",
+          "Developed file upload module with server-side validation, image handling, and FTP-based deployment on Bluehost.",
+          "Integrated email automation for user notifications and CSV export functionality for admin data management.",
+        ],
+      },
+    ],
+  },
+
+  // ──────────────────────────── GREEK ────────────────────────────
+  el: {
+    name: "Βασίλης",
+    surname: "Επίθετο",           // ← replace
+    title: "Android & Web Developer",
+    tagline: "Αυτοδίδακτος developer που παράγει προϊόντα από 11 ετών. 300K+ downloads. Mindset προσανατολισμένο στο monetization.",
+
+    labels: {
+      contact: "Επικοινωνία",
+      education: "Εκπαίδευση",
+      skills: "Τεχνολογίες",
+      languages: "Γλώσσες",
+      profile: "Προφίλ",
+      experience: "Εμπειρία",
+    },
+
+    stats: [
+      { num: "300K+", label: "Συνολικά Downloads" },
+      { num: "8+",    label: "Χρόνια Ανάπτυξης"  },
+      { num: "5+",    label: "Ενεργές Εφαρμογές" },
+    ],
+
+    profile: "Αυτοκινούμενος developer με 8+ χρόνια πρακτικής εμπειρίας στην ανάπτυξη Android εφαρμογών και web πλατφορμών. Δημιουργός viral mobile game με 50K downloads σε 3 μήνες σε ηλικία 16 ετών. Συνδυάζει product thinking με τεχνική υλοποίηση — από σχεδιασμό REST APIs μέχρι AdMob monetization και διαχείριση εκδόσεων στο Google Play. Εκπόνηση πτυχιακής στο Τμήμα Εφαρμοσμένης Πληροφορικής ΠΑ.ΜΑΚ.",
+
+    contact: {
+      location: "Θεσσαλονίκη, Ελλάδα",
+      github:   "github.com/vasilis",
+      linkedin: "linkedin.com/in/vasilis",
+    },
+
+    education: [
+      {
+        degree: "Πτυχίο Εφαρμοσμένης Πληροφορικής",
+        school: "Πανεπιστήμιο Μακεδονίας",
+        year: "2022 — Παρόν · 3ο Έτος",
+        direction: "Επιστήμη και Τεχνολογία Υπολογιστών",
+      },
+    ],
+
+    skills: [
+      "Java", "Android Studio", "Gradle", "REST APIs", "JSON",
+      "HTTP / OAuth", "AdMob", "Google Play", "PHP", "HTML/CSS",
+      "JavaScript", "MySQL", "Logcat", "ANR Debugging",
+      "Git", "Bluehost", "FTP", "CSV Export",
+    ],
+
+    languages: [
+      { name: "Ελληνικά",  level: "Μητρική",        pct: 100 },
+      { name: "Αγγλικά",   level: "Άριστα C1",      pct: 90  },
+    ],
+
+    experience: [
+      {
+        role: "Ανεξάρτητος Android Developer",
+        company: "Αυτοαπασχολούμενος",
+        period: "2018 — Σήμερα",
+        bullets: [
+          "Ανέπτυξα και δημοσίευσα 5+ Android εφαρμογές με 300.000+ συνολικά downloads στο Google Play.",
+          "Υλοποίησα AdMob monetization (banner, interstitial, rewarded) και βελτιστοποίησα eCPM μέσω A/B testing.",
+          "Διαχείριση πλήρους κύκλου έκδοσης: ASO, screenshots, staged rollouts, παρακολούθηση crashes.",
+          "Ενσωμάτωση REST APIs (GET/POST, headers, auth tokens, JSON parsing) για δυναμικό περιεχόμενο.",
+          "Debugging παραγωγής με Logcat, ANR traces και Firebase Crashlytics.",
+        ],
+      },
+      {
+        role: "Δημιουργός Viral Mobile Game",
+        company: "Ανεξάρτητο Project",
+        period: "2020 (Ηλικία 16)",
+        bullets: [
+          "Σχεδιασμός, ανάπτυξη και λανσάρισμα 2D mobile game για Ελληνόφωνους χρήστες.",
+          "Επίτευξη ~50.000 downloads οργανικά σε περίπου 3 μήνες χωρίς paid marketing.",
+          "Χειρισμός πλήρους pipeline δημοσίευσης στο Google Play.",
+        ],
+      },
+      {
+        role: "Full-Stack Web Developer",
+        company: "Freelance / Προσωπικό Project",
+        period: "2024",
+        bullets: [
+          "Ανέπτυξα web πλατφόρμα από μηδέν με PHP, HTML, CSS και Vanilla JavaScript.",
+          "Υλοποίησα σύστημα authentication, admin panel και role-based access control.",
+          "Ανέπτυξα module ανεβάσματος αρχείων με server-side validation και FTP deployment σε Bluehost.",
+          "Email αυτοματισμός για ειδοποιήσεις χρηστών και CSV export για διαχείριση δεδομένων admin.",
+        ],
+      },
+    ],
+  },
+};
+
+// ─────────────────────────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────────────────────────
+let currentLang = 'en';
+let currentSearch = '';
+
+// ─────────────────────────────────────────────────────────────
+//  RENDER
+// ─────────────────────────────────────────────────────────────
+function render() {
+  const d = RESUME[currentLang];
+  const q = currentSearch.trim().toLowerCase();
+
+  // ── Sidebar header
+  document.getElementById('s-name').textContent = d.name + ' ' + d.surname;
+  document.getElementById('s-title').textContent = d.title;
+  document.getElementById('s-tagline').textContent = d.tagline;
+
+  // ── Labels
+  document.getElementById('s-label-contact').textContent  = d.labels.contact;
+  document.getElementById('s-label-edu').textContent      = d.labels.education;
+  document.getElementById('s-label-skills').textContent   = d.labels.skills;
+  document.getElementById('s-label-langs').textContent    = d.labels.languages;
+  document.getElementById('m-label-profile').textContent  = d.labels.profile;
+  document.getElementById('m-label-exp').textContent      = d.labels.experience;
+
+  // ── Main header
+  document.getElementById('m-name').innerHTML =
+    `${d.name} <em>${d.surname}</em>`;
+  document.getElementById('m-role').textContent = d.title;
+
+  // ── Stats
+  document.getElementById('m-stats').innerHTML = d.stats.map(s =>
+    `<div class="stat"><div class="stat-num">${s.num}</div><div class="stat-label">${s.label}</div></div>`
+  ).join('');
+
+  // ── Profile (highlight)
+  document.getElementById('m-profile').innerHTML = highlight(d.profile, q);
+
+  // ── Contact
+  document.getElementById('s-contact').innerHTML = `
+    <div class="contact-item"><span class="icon">📍</span><span>${d.contact.location}</span></div>
+    <div class="contact-item"><span class="icon">✉</span><span id="c-email"></span></div>
+    <div class="contact-item"><span class="icon">☎</span><span id="c-phone"></span></div>
+    <div class="contact-item"><span class="icon">⌥</span><a href="https://${d.contact.github}" target="_blank">${d.contact.github}</a></div>
+    <div class="contact-item"><span class="icon">in</span><a href="https://${d.contact.linkedin}" target="_blank">${d.contact.linkedin}</a></div>
+  `;
+  // Decode obfuscated contact
+  document.getElementById('c-email').textContent = decodeContact(_e);
+  document.getElementById('c-phone').textContent = decodeContact(_p);
+
+  // ── Education
+  document.getElementById('s-education').innerHTML = d.education.map(e => `
+    <div class="edu-item">
+      <div class="edu-degree">${e.degree}</div>
+      <div class="edu-school">${e.school}</div>
+      <div class="edu-year">${e.year}</div>
+      <div class="edu-school" style="font-size:10px;margin-top:3px;opacity:0.6">${e.direction}</div>
+    </div>
+  `).join('');
+
+  // ── Skills
+  const skillsHtml = d.skills.map(sk => {
+    const isMatch = q && sk.toLowerCase().includes(q);
+    return `<span class="skill-tag ${isMatch ? 'match' : ''}">${highlight(sk, q)}</span>`;
+  }).join('');
+  document.getElementById('s-skills').innerHTML = skillsHtml;
+
+  // ── Languages
+  document.getElementById('s-languages').innerHTML = d.languages.map(l => `
+    <div class="lang-item">
+      <span class="lang-name">${l.name}</span>
+      <span class="lang-level">${l.level}</span>
+    </div>
+    <div class="lang-bar"><div class="lang-bar-fill" style="width:${l.pct}%"></div></div>
+  `).join('');
+
+  // ── Experience (with search filter)
+  let anyVisible = false;
+  const expHtml = d.experience.map(exp => {
+    const bulletsHtml = exp.bullets.map(b => {
+      const visible = !q || b.toLowerCase().includes(q) ||
+                      exp.role.toLowerCase().includes(q) ||
+                      exp.company.toLowerCase().includes(q);
+      if (visible) anyVisible = true;
+      return `<li class="exp-bullet${visible || !q ? '' : ' hidden'}">${highlight(b, q)}</li>`;
+    }).join('');
+
+    const sectionVisible = !q ||
+      exp.role.toLowerCase().includes(q) ||
+      exp.company.toLowerCase().includes(q) ||
+      exp.bullets.some(b => b.toLowerCase().includes(q));
+
+    return `
+      <div class="exp-item${sectionVisible ? '' : ' hidden'}">
+        <div class="timeline-line"><div class="timeline-dot"></div></div>
+        <div class="exp-content">
+          <div class="exp-header">
+            <div class="exp-role">
+              ${highlight(exp.role, q)}
+              <span class="exp-company">${highlight(exp.company, q)}</span>
+            </div>
+            <div class="exp-period">${exp.period}</div>
+          </div>
+          <ul class="exp-bullets">${bulletsHtml}</ul>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('m-experience').innerHTML = expHtml;
+
+  const noRes = document.getElementById('no-results');
+  if (q && !anyVisible) {
+    noRes.style.display = 'block';
+    noRes.textContent = `No results for "${currentSearch}"`;
+  } else {
+    noRes.style.display = 'none';
+  }
+
+  // ── Active lang buttons
+  document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
+  document.getElementById('btn-el').classList.toggle('active', currentLang === 'el');
+  document.documentElement.lang = currentLang;
+}
+
+// ─────────────────────────────────────────────────────────────
+//  HIGHLIGHT helper
+// ─────────────────────────────────────────────────────────────
+function highlight(text, q) {
+  if (!q) return text;
+  const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+}
+
+// ─────────────────────────────────────────────────────────────
+//  EVENT HANDLERS
+// ─────────────────────────────────────────────────────────────
+function setLang(lang) {
+  currentLang = lang;
+  render();
+}
+
+function handleSearch(val) {
+  currentSearch = val;
+  render();
+}
+
+// ─────────────────────────────────────────────────────────────
+//  PNG EXPORT
+// ─────────────────────────────────────────────────────────────
+async function exportPNG() {
+  const overlay = document.getElementById('export-overlay');
+  overlay.classList.add('active');
+  await new Promise(r => setTimeout(r, 100));
+  try {
+    const canvas = await html2canvas(document.getElementById('resume-wrapper'), {
+      scale: 2, useCORS: true, backgroundColor: '#f5f0e8',
+      logging: false,
+    });
+    const link = document.createElement('a');
+    link.download = 'vasilis-resume.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  } catch(e) { console.error(e); }
+  overlay.classList.remove('active');
+}
+
+// ─────────────────────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────────────────────
+render();
+</script>
 </body>
 </html>
