@@ -1,0 +1,254 @@
+{
+  "el": {
+    "profile": {
+      "name": "ΓΙΑΝΝΟΥΛΑΚΟΣ ΒΑΣΙΛΕΙΟΣ",
+      "title": "Android & Full-Stack Web Developer",
+      "subtitle": "Media Streaming & Brand Protection Specialist",
+      "summary": "Προγραμματιστής Android (Java), Full-Stack Web Developer και Μουσικός Παραγωγός με αποδεδειγμένη εμπειρία στην ανάπτυξη mobile εφαρμογών μεγάλης κλίμακας, custom web υποδομών και ψηφιακών προϊόντων με υψηλό traffic. Εξειδικευμένος σε Java, ExoPlayer (HLS/DASH), custom PHP migrations και βελτιστοποίηση servers. Έμπειρος στην εκτέλεση σύνθετων μεταβάσεων από έτοιμα CMS σε custom, ελαφριές αρχιτεκτονικές, στη διαχείριση Apache servers (cPanel/.htaccess), καθώς και στην εφαρμογή στρατηγικών ψηφιακής ασφάλειας (Cybersecurity), brand protection και community moderation."
+    },
+    "labels": {
+      "contact": "Επικοινωνία",
+      "education": "Εκπαίδευση",
+      "skills": "Τεχνικές Δεξιότητες",
+      "languages": "Γλώσσες",
+      "profile": "Προφίλ",
+      "experience": "Επαγγελματική Εμπειρία",
+      "filterAll": "Όλα",
+      "noResults": "Δεν βρέθηκαν αποτελέσματα για"
+    },
+    "stats": [
+      { "num": "300K+", "label": "Συνολικά Downloads" },
+      { "num": "8+", "label": "Χρόνια Ανάπτυξης" },
+      { "num": "5+", "label": "Ενεργά Apps" }
+    ],
+    "contact": {
+      "location": "Θεσσαλονίκη, Ελλάδα",
+      "github": "github.com/7keyzbeatz",
+      "linkedin": "linkedin.com/in/vasileios-giannoulakos"
+    },
+    "education": [
+      {
+        "degree": "Πτυχίο στην Εφαρμοσμένη Πληροφορική",
+        "school": "Πανεπιστήμιο Μακεδονίας (ΠΑΜΑΚ)",
+        "year": "2023 - Σήμερα",
+        "direction": "Επιστήμη & Τεχνολογία Υπολογιστών (3ο Έτος)"
+      },
+      {
+        "degree": "Απολυτήριο Γενικού Λυκείου",
+        "school": "6ο Γενικό Λύκειο Τρικάλων",
+        "year": "2020 - 2023",
+        "direction": "Κατεύθυνση: Θετικών Σπουδών (Άριστα)"
+      }
+    ],
+    "skills": [
+      "Java", "Android Studio", "ExoPlayer (HLS/DASH)", "REST APIs", "JSON Parsing", 
+      "Custom PHP", "Apache / cPanel", ".htaccess", "MySQL Optimization", "GZIP Compression",
+      "Cybersecurity", "Brand Protection", "Anti-Phishing", "Firebase Stack", "AdMob Traffic", 
+      "Git", "UI/UX Design", "Photoshop", "Premiere Pro", "Unity 2D (C#)"
+    ],
+    "languages": [
+      { "name": "Ελληνικά", "level": "Μητρική", "pct": 100 },
+      { "name": "Αγγλικά", "level": "Επαγγελματική Γνώση (Lower)", "pct": 75 }
+    ],
+    "experience": [
+      {
+        "role": "Android Developer – Media Streaming Apps",
+        "company": "Indie Development",
+        "period": "2022 - Σήμερα",
+        "category": "android",
+        "image": "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=300&auto=format&fit=crop&q=60",
+        "links": [
+          { "name": "Google Play", "url": "#" }
+        ],
+        "bullets": [
+          "Σχεδιασμός, ανάπτυξη και συντήρηση πολλαπλών Android streaming εφαρμογών, προσελκύοντας πάνω από 180.000+ μοναδικούς χρήστες (π.χ. MovieFlix).",
+          "Παραμετροποίηση του ExoPlayer για σταθερή ροή HLS / DASH περιεχομένου με custom UI και advanced caching για ελαχιστοποίηση της κατανάλωσης δεδομένων.",
+          "Υλοποίηση δυναμικής φόρτωσης δεδομένων (Dynamic Content Loading) μέσω REST APIs και GZIP JSON parsing για βέλτιστη ταχύτητα απόκρισης.",
+          "Ενσωμάτωση του Firebase Stack (Analytics, Remote Config, Crashlytics) για real-time παρακολούθηση σφαλμάτων και βελτιστοποίηση του UX.",
+          "Στρατηγική διαχείριση AdMob traffic για μεγιστοποίηση των εσόδων μέσω έξυπνων ad placements χωρίς να επηρεάζεται η εμπειρία του χρήστη."
+        ]
+      },
+      {
+        "role": "Full-Stack Web Developer & Infrastructure Specialist",
+        "company": "Custom PHP Solutions & Migrations",
+        "period": "2026 - Σήμερα",
+        "category": "web",
+        "image": "https://images.unsplash.com/photo-1547082299-de196ea013d6?w=300&auto=format&fit=crop&q=60",
+        "links": [
+          { "name": "Live Site", "url": "https://theslotsfamilia.com" }
+        ],
+        "bullets": [
+          "Επιτυχής ολοκλήρωση πλήρους migration μεγάλων και απαιτητικών platforms (π.χ. theslotsfamilia.com) από WordPress σε custom, ελαφριές PHP λύσεις.",
+          "Σχεδιασμός custom αρχιτεκτονικής backend που αντέχει σε τεράστια spikes επισκεψιμότητας (high-traffic), εξασφαλίζοντας 100% uptime και ταχύτατο page loading.",
+          "Πλήρης διαχείριση Apache servers μέσω cPanel, ρύθμιση Document Roots και advanced παραμετροποίηση αρχείων `.htaccess` για μέγιστη ασφάλεια και SEO φιλικά URLs.",
+          "Βελτιστοποίηση δομής και ερωτημάτων (queries) βάσεων δεδομένων MySQL, μειώνοντας δραστικά την κατανάλωση πόρων του server."
+        ]
+      },
+      {
+        "role": "Digital Brand Protection & Community Security",
+        "company": "Cybersecurity & Moderation",
+        "period": "2026 - Σήμερα",
+        "category": "security",
+        "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=300&auto=format&fit=crop&q=60",
+        "links": [],
+        "bullets": [
+          "Ανάπτυξη και διαχείριση στρατηγικών άμυνας ενάντια σε επιθέσεις Phishing και Social Engineering, προστατεύοντας online brands με υψηλό traffic.",
+          "Ενεργός εντοπισμός, αναφορά και εξουδετέρωση κακόβουλων κλώνων (malicious sites) και phishing links για την αποτροπή οικονομικής απάτης εις βάρος των χρηστών.",
+          "Σχεδιασμός ασφαλών επιπέδων αυτοματοποίησης, access controls και webhook monitoring σε κοινότητες μεγάλης κλίμακας (Discord), διασφαλίζοντας την ακεραιότητα του περιβάλλοντος και των δεδομένων."
+        ]
+      },
+      {
+        "role": "Android Developer – RodopiFlix",
+        "company": "Rodopi TV",
+        "period": "2025 - Σήμερα",
+        "category": "android",
+        "image": "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=300&auto=format&fit=crop&q=60",
+        "links": [],
+        "bullets": [
+          "Συμμετοχή στον Senior σχεδιασμό διεπαφής χρήστη (UI/UX) και στην ανάπτυξη της επίσημης Android εφαρμογής για το περιφερειακό δίκτυο Rodopi TV.",
+          "Ενσωμάτωση λειτουργιών Live Streaming και On-Demand αναπαραγωγής πολυμέσων με custom player features.",
+          "Σχεδιασμός της δομής πλοήγησης και των layouts για σταθερή απόδοση σε ένα ευρύ φάσμα Android συσκευών."
+        ]
+      },
+      {
+        "role": "Unity Mobile 2D Game Developer – Crazy Fighters",
+        "company": "Indie Game Project",
+        "period": "2021 - 2022",
+        "category": "design",
+        "image": "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300&auto=format&fit=crop&q=60",
+        "links": [],
+        "bullets": [
+          "Σχεδιασμός και ανάπτυξη ενός 2D mobile fighting παιχνιδιού με viral meme χαρακτήρες, το οποίο συγκέντρωσε 50.000+ λήψεις μέσα σε λίγες ημέρες.",
+          "Δημιουργία viral marketing καμπάνιας στο TikTok που ξεπέρασε τις 500.000+ προβολές, οδηγώντας το project σε παρουσίαση από εθνικά ελληνικά μέσα ενημέρωσης.",
+          "Ανάπτυξη των game mechanics σε C#, UI/UX design και ενσωμάτωση AdMob/Firebase για monetization."
+        ]
+      }
+    ]
+  },
+  "en": {
+    "profile": {
+      "name": "GIANNOULAKOS VASILEIOS",
+      "title": "Android & Full-Stack Web Developer",
+      "subtitle": "Media Streaming & Brand Protection Specialist",
+      "summary": "Android Developer (Java), Full-Stack Web Developer, and Music Producer with proven experience in building high-scale mobile applications, custom web infrastructure, and high-traffic digital products. Specialized in Java, ExoPlayer (HLS/DASH), custom PHP migrations, and server optimization. Experienced in executing complex CMS-to-custom lightweight architectural migrations, managing Apache servers (cPanel/.htaccess), and implementing robust cybersecurity, digital brand protection, and community moderation layers."
+    },
+    "labels": {
+      "contact": "Contact",
+      "education": "Education",
+      "skills": "Technical Skills",
+      "languages": "Languages",
+      "profile": "Profile",
+      "experience": "Professional Experience",
+      "filterAll": "All",
+      "noResults": "No results found for"
+    },
+    "stats": [
+      { "num": "300K+", "label": "Total Downloads" },
+      { "num": "8+", "label": "Years Building" },
+      { "num": "5+", "label": "Live Apps" }
+    ],
+    "contact": {
+      "location": "Thessaloniki, Greece",
+      "github": "github.com/7keyzbeatz",
+      "linkedin": "linkedin.com/in/vasileios-giannoulakos"
+    },
+    "education": [
+      {
+        "degree": "BSc in Applied Informatics",
+        "school": "University of Macedonia (PAMAK)",
+        "year": "2023 - Present",
+        "direction": "Computer Science & Technology (3rd Year)"
+      },
+      {
+        "degree": "High School Diploma",
+        "school": "6th General Lyceum of Trikala",
+        "year": "2020 - 2023",
+        "direction": "Direction: Science Studies (Excellent)"
+      }
+    ],
+    "skills": [
+      "Java", "Android Studio", "ExoPlayer (HLS/DASH)", "REST APIs", "JSON Parsing", 
+      "Custom PHP", "Apache / cPanel", ".htaccess", "MySQL Optimization", "GZIP Compression",
+      "Cybersecurity", "Brand Protection", "Anti-Phishing", "Firebase Stack", "AdMob Traffic", 
+      "Git", "UI/UX Design", "Photoshop", "Premiere Pro", "Unity 2D (C#)"
+    ],
+    "languages": [
+      { "name": "Greek", "level": "Native", "pct": 100 },
+      { "name": "English", "level": "Professional Working Proficiency (Lower)", "pct": 75 }
+    ],
+    "experience": [
+      {
+        "role": "Android Developer – Media Streaming Apps",
+        "company": "Indie Development",
+        "period": "2022 - Present",
+        "category": "android",
+        "image": "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=300&auto=format&fit=crop&q=60",
+        "links": [
+          { "name": "Google Play", "url": "#" }
+        ],
+        "bullets": [
+          "Designed, developed, and maintained multiple Android media streaming applications, reaching over 180,000+ combined unique users (e.g., MovieFlix).",
+          "Configured ExoPlayer for seamless HLS / DASH streaming with custom UI and advanced caching to optimize data and resource consumption.",
+          "Implemented dynamic content loading using REST APIs and optimized GZIP JSON parsing for fast server response times.",
+          "Integrated Firebase Stack (Analytics, Remote Config, Crashlytics) for real-time crash monitoring, analytical tracking, and UI optimization.",
+          "Managed AdMob traffic strategies to maximize revenue through smart ad placements while maintaining an elite user experience."
+        ]
+      },
+      {
+        "role": "Full-Stack Web Developer & Web Infrastructure Specialist",
+        "company": "Custom PHP Solutions & Migrations",
+        "period": "2026 - Present",
+        "category": "web",
+        "image": "https://images.unsplash.com/photo-1547082299-de196ea013d6?w=300&auto=format&fit=crop&q=60",
+        "links": [
+          { "name": "Live Site", "url": "https://theslotsfamilia.com" }
+        ],
+        "bullets": [
+          "Successfully completed full technical migrations of large scale platforms (e.g., theslotsfamilia.com) from WordPress to lightweight, custom PHP solutions.",
+          "Engineered custom backend architectures designed to withstand extreme high-traffic spikes, ensuring 100% uptime and blazing-fast loading speeds.",
+          "Managed Apache server environments via cPanel, configured Document Roots, and optimized `.htaccess` configurations for maximum security and SEO-friendly URLs.",
+          "Optimized MySQL database structures and query execution, drastically reducing server overhead and resource utilization."
+        ]
+      },
+      {
+        "role": "Digital Brand Protection & Community Security",
+        "company": "Cybersecurity & Moderation",
+        "period": "2026 - Present",
+        "category": "security",
+        "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=300&auto=format&fit=crop&q=60",
+        "links": [],
+        "bullets": [
+          "Developed and actively deployed defensive strategies against Phishing and Social Engineering attacks, securing high-traffic online brands.",
+          "Monitored, detected, and neutralized malicious site clones and phishing links to safeguard the community and mitigate financial fraud.",
+          "Designed secure automation layers, access controls, and webhook monitoring within large-scale online communities (Discord), ensuring ecosystem data integrity."
+        ]
+      },
+      {
+        "role": "Android Developer – RodopiFlix",
+        "company": "Rodopi TV",
+        "period": "2025 - Present",
+        "category": "android",
+        "image": "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=300&auto=format&fit=crop&q=60",
+        "links": [],
+        "bullets": [
+          "Contributed to the UI/UX design and Android development of the official media streaming platform for the regional network Rodopi TV.",
+          "Integrated Live Streaming functionality and On-Demand media playback equipped with custom player features.",
+          "Designed responsive layouts and reliable navigation structures for stable performance across diverse Android devices."
+        ]
+      },
+      {
+        "role": "Unity Mobile 2D Game Developer – Crazy Fighters",
+        "company": "Indie Game Project",
+        "period": "2021 - 2022",
+        "category": "design",
+        "image": "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=300&auto=format&fit=crop&q=60",
+        "links": [],
+        "bullets": [
+          "Programmed core game mechanics in C#, handled UI/UX design, and integrated AdMob/Firebase for monetization frameworks.",
+          "Created a viral TikTok marketing campaign that generated 500,000+ views, leading to the project being featured in national Greek media.",
+          "Designed and developed a mobile 2D fighting game featuring viral meme characters, achieving 50,000+ downloads within days of release."
+        ]
+      }
+    ]
+  }
+}
